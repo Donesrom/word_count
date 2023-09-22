@@ -1,3 +1,7 @@
+import os
+import socketserver
+import http.server
+
 def count_words(text, case_sensitive=True):
     # Split the text into words and count them
     if not case_sensitive:
@@ -30,3 +34,8 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+port = int(os.getenv('PORT', 80))
+print('Listening on port %s' % (port))
+httpd = socketserver.TCPServer(('', port), Handler)
+httpd.serve_forever()
